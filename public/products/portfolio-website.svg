@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" role="img" aria-label="Portfolio website with selected work grid">
+  <rect width="1200" height="900" fill="#0B0B0B"/>
+  <text x="60" y="90" fill="#F5F2ED" font-family="Arial, sans-serif" font-size="26" font-weight="700" letter-spacing="3">STUDIO / PORTFOLIO</text>
+  <text x="1040" y="88" fill="#8B0D1A" font-family="Arial, sans-serif" font-size="16" font-weight="700">CONTACT</text>
+  <line x1="60" y1="120" x2="1140" y2="120" stroke="#F5F2ED" stroke-width="2" opacity="0.3"/>
+  <text x="60" y="290" fill="#F5F2ED" font-family="Georgia, serif" font-size="96" font-style="italic">Selected</text>
+  <text x="60" y="390" fill="#8B0D1A" font-family="Georgia, serif" font-size="96" font-style="italic">work.</text>
+  <rect x="60" y="430" width="300" height="12" fill="#F5F2ED" opacity="0.5"/>
+  <rect x="60" y="460" width="200" height="12" fill="#F5F2ED" opacity="0.3"/>
+  <text x="60" y="540" fill="#F5F2ED" font-family="Arial, sans-serif" font-size="16" letter-spacing="3">01 / 2024</text>
+  <g opacity="0.9">
+    <rect x="620" y="170" width="520" height="360" fill="#8B0D1A" opacity="0.32"/>
+    <rect x="660" y="210" width="440" height="280" fill="#F5F2ED" opacity="0.1"/>
+    <circle cx="880" cy="350" r="90" fill="none" stroke="#F5F2ED" stroke-width="6" opacity="0.3"/>
+    <rect x="700" y="550" width="180" height="10" fill="#F5F2ED" opacity="0.6"/>
+  </g>
+  <text x="60" y="640" fill="#F5F2ED" font-family="Arial, sans-serif" font-size="22" font-weight="700">ARCHIVE</text>
+  <g>
+    <rect x="60" y="668" width="340" height="180" fill="#F5F2ED" opacity="0.06"/>
+    <rect x="88" y="696" width="284" height="100" fill="#8B0D1A" opacity="0.35"/>
+    <rect x="88" y="816" width="160" height="10" fill="#F5F2ED" opacity="0.6"/>
+    <rect x="430" y="668" width="340" height="180" fill="#8B0D1A" opacity="0.25"/>
+    <rect x="458" y="696" width="284" height="100" fill="#F5F2ED" opacity="0.12"/>
+    <rect x="458" y="816" width="200" height="10" fill="#F5F2ED" opacity="0.6"/>
+    <rect x="800" y="668" width="340" height="180" fill="#F5F2ED" opacity="0.06"/>
+    <rect x="828" y="696" width="284" height="100" fill="#8B0D1A" opacity="0.4"/>
+    <rect x="828" y="816" width="140" height="10" fill="#F5F2ED" opacity="0.6"/>
+  </g>
+</svg>

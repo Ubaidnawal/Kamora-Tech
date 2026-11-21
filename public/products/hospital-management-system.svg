@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" role="img" aria-label="Hospital management dashboard interface">
+  <rect width="1200" height="900" fill="#0B0B0B"/>
+  <rect x="0" y="0" width="220" height="900" fill="#8B0D1A" opacity="0.3"/>
+  <path d="M56 58 h40 v-22 h28 v22 h40 v28 h-40 v22 h-28 v-22 h-40 z" fill="#F5F2ED"/>
+  <text x="140" y="80" fill="#F5F2ED" font-family="Arial, sans-serif" font-size="20" font-weight="700" letter-spacing="2">HEALTH</text>
+  <g fill="#F5F2ED" font-family="Arial, sans-serif" font-size="15" opacity="0.8">
+    <text x="40" y="160">OVERVIEW</text><text x="40" y="210">APPOINTMENTS</text><text x="40" y="260">PATIENTS</text><text x="40" y="310">STAFF</text><text x="40" y="360">INVENTORY</text>
+  </g>
+  <rect x="20" y="130" width="180" height="42" fill="#8B0D1A"/>
+  <text x="260" y="62" fill="#F5F2ED" font-family="Arial, sans-serif" font-size="28" font-weight="700">Hospital Overview</text>
+  <rect x="260" y="86" width="300" height="12" fill="#F5F2ED" opacity="0.4"/>
+  <g>
+    <rect x="260" y="130" width="270" height="120" fill="#F5F2ED" opacity="0.07"/>
+    <rect x="280" y="152" width="120" height="10" fill="#F5F2ED" opacity="0.5"/>
+    <text x="280" y="220" fill="#F5F2ED" font-family="Arial, sans-serif" font-size="44" font-weight="700">48</text>
+    <text x="360" y="220" fill="#8B0D1A" font-family="Arial, sans-serif" font-size="18">NEW</text>
+    <rect x="550" y="130" width="270" height="120" fill="#F5F2ED" opacity="0.07"/>
+    <rect x="570" y="152" width="140" height="10" fill="#F5F2ED" opacity="0.5"/>
+    <text x="570" y="220" fill="#F5F2ED" font-family="Arial, sans-serif" font-size="44" font-weight="700">12</text>
+    <rect x="840" y="130" width="320" height="120" fill="#8B0D1A" opacity="0.3"/>
+    <rect x="860" y="152" width="120" height="10" fill="#F5F2ED" opacity="0.6"/>
+    <text x="860" y="220" fill="#F5F2ED" font-family="Arial, sans-serif" font-size="44" font-weight="700">06</text>
+  </g>
+  <text x="260" y="300" fill="#F5F2ED" font-family="Arial, sans-serif" font-size="18" font-weight="700">ADMISSION TREND</text>
+  <rect x="260" y="320" width="580" height="220" fill="#F5F2ED" opacity="0.05"/>
+  <g fill="#8B0D1A" opacity="0.85">
+    <rect x="290" y="450" width="48" height="70"/><rect x="360" y="410" width="48" height="110"/><rect x="430" y="430" width="48" height="90"/>
+    <rect x="500" y="370" width="48" height="150"/><rect x="570" y="400" width="48" height="120"/><rect x="640" y="350" width="48" height="170"/>
+    <rect x="710" y="390" width="48" height="130"/><rect x="780" y="360" width="48" height="160"/>
+  </g>
+  <text x="880" y="300" fill="#F5F2ED" font-family="Arial, sans-serif" font-size="18" font-weight="700">TODAY'S CARE</text>
+  <g>
+    <rect x="880" y="320" width="280" height="46" fill="#F5F2ED" opacity="0.07"/><rect x="900" y="338" width="150" height="10" fill="#F5F2ED" opacity="0.5"/>
+    <rect x="880" y="378" width="280" height="46" fill="#F5F2ED" opacity="0.07"/><rect x="900" y="396" width="180" height="10" fill="#F5F2ED" opacity="0.5"/>
+    <rect x="880" y="436" width="280" height="46" fill="#8B0D1A" opacity="0.3"/><rect x="900" y="454" width="120" height="10" fill="#F5F2ED" opacity="0.6"/>
+    <rect x="880" y="494" width="280" height="46" fill="#F5F2ED" opacity="0.07"/><rect x="900" y="512" width="160" height="10" fill="#F5F2ED" opacity="0.5"/>
+  </g>
+</svg>

@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" role="img" aria-label="ERP software dashboard with connected operations data">
+  <rect width="1200" height="900" fill="#0B0B0B"/>
+  <rect x="0" y="0" width="200" height="900" fill="#8B0D1A" opacity="0.3"/>
+  <rect x="32" y="32" width="36" height="36" fill="#F5F2ED"/>
+  <text x="84" y="60" fill="#F5F2ED" font-family="Arial, sans-serif" font-size="20" font-weight="700">ERP</text>
+  <g fill="#F5F2ED" font-family="Arial, sans-serif" font-size="15" opacity="0.8">
+    <text x="32" y="150">DASHBOARD</text><text x="32" y="200">FINANCE</text><text x="32" y="250">INVENTORY</text><text x="32" y="300">OPERATIONS</text><text x="32" y="350">REPORTS</text>
+  </g>
+  <rect x="16" y="122" width="168" height="42" fill="#8B0D1A"/>
+  <text x="240" y="60" fill="#F5F2ED" font-family="Arial, sans-serif" font-size="28" font-weight="700">Operations</text>
+  <rect x="240" y="84" width="260" height="12" fill="#F5F2ED" opacity="0.4"/>
+  <g>
+    <rect x="240" y="130" width="290" height="118" fill="#F5F2ED" opacity="0.07"/>
+    <rect x="262" y="152" width="120" height="10" fill="#F5F2ED" opacity="0.5"/>
+    <text x="262" y="220" fill="#F5F2ED" font-family="Arial, sans-serif" font-size="42" font-weight="700">84%</text>
+    <rect x="550" y="130" width="290" height="118" fill="#8B0D1A" opacity="0.3"/>
+    <rect x="572" y="152" width="140" height="10" fill="#F5F2ED" opacity="0.6"/>
+    <text x="572" y="220" fill="#F5F2ED" font-family="Arial, sans-serif" font-size="42" font-weight="700">128</text>
+    <rect x="860" y="130" width="300" height="118" fill="#F5F2ED" opacity="0.07"/>
+    <rect x="882" y="152" width="110" height="10" fill="#F5F2ED" opacity="0.5"/>
+    <text x="882" y="220" fill="#F5F2ED" font-family="Arial, sans-serif" font-size="42" font-weight="700">12</text>
+  </g>
+  <text x="240" y="300" fill="#F5F2ED" font-family="Arial, sans-serif" font-size="18" font-weight="700">RESOURCE FLOW</text>
+  <rect x="240" y="320" width="580" height="240" fill="#F5F2ED" opacity="0.05"/>
+  <g fill="#8B0D1A" opacity="0.9">
+    <rect x="270" y="470" width="50" height="70"/><rect x="340" y="440" width="50" height="100"/><rect x="410" y="480" width="50" height="60"/>
+    <rect x="480" y="400" width="50" height="140"/><rect x="550" y="420" width="50" height="120"/><rect x="620" y="370" width="50" height="170"/>
+    <rect x="690" y="410" width="50" height="130"/><rect x="760" y="380" width="50" height="160"/>
+  </g>
+  <text x="860" y="300" fill="#F5F2ED" font-family="Arial, sans-serif" font-size="18" font-weight="700">SYSTEM MODULES</text>
+  <g>
+    <rect x="860" y="320" width="300" height="52" fill="#F5F2ED" opacity="0.07"/><rect x="882" y="340" width="160" height="12" fill="#F5F2ED" opacity="0.55"/>
+    <rect x="860" y="384" width="300" height="52" fill="#F5F2ED" opacity="0.07"/><rect x="882" y="404" width="200" height="12" fill="#F5F2ED" opacity="0.55"/>
+    <rect x="860" y="448" width="300" height="52" fill="#8B0D1A" opacity="0.3"/><rect x="882" y="468" width="140" height="12" fill="#F5F2ED" opacity="0.7"/>
+    <rect x="860" y="512" width="300" height="52" fill="#F5F2ED" opacity="0.07"/><rect x="882" y="532" width="180" height="12" fill="#F5F2ED" opacity="0.55"/>
+  </g>
+  <rect x="240" y="600" width="920" height="250" fill="#F5F2ED" opacity="0.04"/>
+  <text x="264" y="646" fill="#F5F2ED" font-family="Arial, sans-serif" font-size="18" font-weight="700">INTEGRATED RECORDS</text>
+  <g opacity="0.5"><rect x="264" y="676" width="872" height="8" fill="#F5F2ED"/><rect x="264" y="708" width="872" height="8" fill="#F5F2ED"/><rect x="264" y="740" width="872" height="8" fill="#F5F2ED"/><rect x="264" y="772" width="872" height="8" fill="#F5F2ED"/></g>
+</svg>

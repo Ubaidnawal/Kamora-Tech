@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" role="img" aria-label="CRM software dashboard with customer pipeline and scheduling">
+  <rect width="1200" height="900" fill="#0B0B0B"/>
+  <rect x="0" y="0" width="1200" height="70" fill="#8B0D1A"/>
+  <text x="40" y="46" fill="#F5F2ED" font-family="Arial, sans-serif" font-size="24" font-weight="700" letter-spacing="3">CRM</text>
+  <g fill="#F5F2ED" font-family="Arial, sans-serif" font-size="16" opacity="0.85">
+    <text x="780" y="45">CONTACTS</text><text x="920" y="45">PIPELINE</text><text x="1070" y="45">SCHEDULE</text>
+  </g>
+  <text x="40" y="130" fill="#F5F2ED" font-family="Arial, sans-serif" font-size="30" font-weight="700">Customer Pipeline</text>
+  <rect x="40" y="154" width="260" height="12" fill="#F5F2ED" opacity="0.4"/>
+  <g>
+    <rect x="40" y="200" width="350" height="120" fill="#F5F2ED" opacity="0.07"/>
+    <rect x="64" y="224" width="130" height="10" fill="#F5F2ED" opacity="0.5"/>
+    <text x="64" y="292" fill="#F5F2ED" font-family="Arial, sans-serif" font-size="42" font-weight="700">32</text>
+    <rect x="420" y="200" width="350" height="120" fill="#8B0D1A" opacity="0.3"/>
+    <rect x="444" y="224" width="140" height="10" fill="#F5F2ED" opacity="0.6"/>
+    <text x="444" y="292" fill="#F5F2ED" font-family="Arial, sans-serif" font-size="42" font-weight="700">18</text>
+    <rect x="800" y="200" width="360" height="120" fill="#F5F2ED" opacity="0.07"/>
+    <rect x="824" y="224" width="120" height="10" fill="#F5F2ED" opacity="0.5"/>
+    <text x="824" y="292" fill="#F5F2ED" font-family="Arial, sans-serif" font-size="42" font-weight="700">09</text>
+  </g>
+  <text x="40" y="376" fill="#F5F2ED" font-family="Arial, sans-serif" font-size="18" font-weight="700">ACTIVE DEALS</text>
+  <g>
+    <rect x="40" y="396" width="340" height="72" fill="#F5F2ED" opacity="0.06"/>
+    <circle cx="76" cy="432" r="20" fill="#8B0D1A" opacity="0.6"/><rect x="110" y="418" width="180" height="10" fill="#F5F2ED" opacity="0.6"/>
+    <rect x="110" y="442" width="120" height="8" fill="#F5F2ED" opacity="0.3"/>
+    <rect x="420" y="396" width="340" height="72" fill="#8B0D1A" opacity="0.28"/>
+    <circle cx="456" cy="432" r="20" fill="#F5F2ED" opacity="0.4"/><rect x="490" y="418" width="200" height="10" fill="#F5F2ED" opacity="0.7"/>
+    <rect x="490" y="442" width="140" height="8" fill="#F5F2ED" opacity="0.35"/>
+    <rect x="800" y="396" width="360" height="72" fill="#F5F2ED" opacity="0.06"/>
+    <circle cx="836" cy="432" r="20" fill="#8B0D1A" opacity="0.6"/><rect x="870" y="418" width="170" height="10" fill="#F5F2ED" opacity="0.6"/>
+    <rect x="870" y="442" width="110" height="8" fill="#F5F2ED" opacity="0.3"/>
+    <rect x="40" y="480" width="1120" height="72" fill="#F5F2ED" opacity="0.06"/>
+    <circle cx="76" cy="516" r="20" fill="#8B0D1A" opacity="0.4"/><rect x="110" y="502" width="200" height="10" fill="#F5F2ED" opacity="0.6"/>
+    <rect x="110" y="526" width="130" height="8" fill="#F5F2ED" opacity="0.3"/>
+  </g>
+  <text x="40" y="610" fill="#F5F2ED" font-family="Arial, sans-serif" font-size="18" font-weight="700">FOLLOW-UP SCHEDULE</text>
+  <rect x="40" y="630" width="1120" height="220" fill="#F5F2ED" opacity="0.04"/>
+  <g fill="#8B0D1A" opacity="0.9">
+    <rect x="70" y="740" width="70" height="90"/><rect x="170" y="700" width="70" height="130"/><rect x="270" y="760" width="70" height="70"/>
+    <rect x="370" y="680" width="70" height="150"/><rect x="470" y="720" width="70" height="110"/><rect x="570" y="690" width="70" height="140"/>
+    <rect x="670" y="750" width="70" height="80"/><rect x="770" y="710" width="70" height="120"/><rect x="870" y="670" width="70" height="160"/>
+    <rect x="970" y="730" width="70" height="100"/>
+  </g>
+</svg>
