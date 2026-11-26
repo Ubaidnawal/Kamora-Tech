@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
-import { apiFetch } from "@/lib/api";
+import { apiFetch, forgetCsrfToken, rememberCsrfToken } from "@/lib/api";
 
 export type AuthUser = {
   id: string;
@@ -36,7 +36,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       authenticated: boolean;
       has_refresh: boolean;
       user: AuthUser | null;
+      csrf_token?: string | null;
     }>("/api/v1/auth/session", { skipCsrf: true });
+    rememberCsrfToken(session.csrf_token);
 
     if (session.authenticated && session.user) {
       setUser(session.user);
@@ -45,7 +47,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
     if (session.has_refresh) {
       try {
-        const refreshed = await apiFetch<{ user?: AuthUser }>("/api/v1/auth/refresh", { method: "POST" });
+        const refreshed = await apiFetch<{ user?: AuthUser; csrf_token?: string | null }>("/api/v1/auth/refresh", { method: "POST" });
+        rememberCsrfToken(refreshed.csrf_token);
         setUser(refreshed.user ?? (await apiFetch<AuthUser>("/api/v1/auth/me")));
         return;
       } catch {
@@ -65,10 +68,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const login = useCallback(
     async (email: string, password: string, rememberMe: boolean) => {
-      const result = await apiFetch<{ user?: AuthUser }>("/api/v1/auth/login", {
+      const result = await apiFetch<{ user?: AuthUser; csrf_token?: string | null }>("/api/v1/auth/login", {
         method: "POST",
         body: JSON.stringify({ email, password, remember_me: rememberMe }),
       });
+      rememberCsrfToken(result.csrf_token);
       const profile = result.user ?? (await apiFetch<AuthUser>("/api/v1/auth/me"));
       setUser(profile);
       return profile;
@@ -87,6 +91,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     try {
       await apiFetch("/api/v1/auth/logout", { method: "POST" });
     } finally {
+      forgetCsrfToken();
       setUser(null);
     }
   }, []);

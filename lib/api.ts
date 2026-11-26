@@ -19,10 +19,46 @@ export class ApiError extends Error {
   }
 }
 
+const CSRF_STORAGE_KEY = "kamora-csrf-token";
+let rememberedCsrfToken = "";
+
+export function rememberCsrfToken(token?: string | null) {
+  if (!token) return;
+  rememberedCsrfToken = token;
+  if (typeof window === "undefined") return;
+  try {
+    window.localStorage.setItem(CSRF_STORAGE_KEY, token);
+  } catch {
+    return;
+  }
+}
+
+export function forgetCsrfToken() {
+  rememberedCsrfToken = "";
+  if (typeof window === "undefined") return;
+  try {
+    window.localStorage.removeItem(CSRF_STORAGE_KEY);
+  } catch {
+    return;
+  }
+}
+
 export const csrfToken = () => {
-  if (typeof document === "undefined") return "";
+  if (typeof document === "undefined") return rememberedCsrfToken;
   const match = document.cookie.match(/(?:^|;\s*)csrf_token=([^;]+)/);
-  return match ? decodeURIComponent(match[1]) : "";
+  if (match) {
+    const token = decodeURIComponent(match[1]);
+    rememberCsrfToken(token);
+    return token;
+  }
+  if (!rememberedCsrfToken && typeof window !== "undefined") {
+    try {
+      rememberedCsrfToken = window.localStorage.getItem(CSRF_STORAGE_KEY) ?? "";
+    } catch {
+      rememberedCsrfToken = "";
+    }
+  }
+  return rememberedCsrfToken;
 };
 
 type ApiFetchOptions = RequestInit & { skipCsrf?: boolean };
