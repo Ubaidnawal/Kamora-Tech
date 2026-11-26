@@ -11,9 +11,6 @@ build/
 .env
 .env.*
 !.env.example
-backend/.env
-backend/.env.*
-!backend/.env.example
 *.pem
 *.key
 *secret*
@@ -24,10 +21,6 @@ venv/
 .venv/
 __pycache__/
 *.pyc
-backend/**/__pycache__/
-backend/.pytest_cache
-backend/.ruff_cache
-backend/.mypy_cache
 .pytest_cache/
 
 # Local logs/temp
@@ -35,13 +28,6 @@ backend/.mypy_cache
 dev-server.err.log
 dev-server.out.log
 tmp_*
-backend/tmp_*
-backend/uvicorn.err.log
-backend/uvicorn.out.log
-
-# Uploads (keep placeholder only)
-backend/uploads/*
-!backend/uploads/.gitkeep
 
 # Agent/tool local metadata
 .agents/
