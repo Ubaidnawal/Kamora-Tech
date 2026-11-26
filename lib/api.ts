@@ -63,28 +63,7 @@ export const csrfToken = () => {
 
 type ApiFetchOptions = RequestInit & { skipCsrf?: boolean };
 
-export async function apiFetch<T>(path: string, options: ApiFetchOptions = {}): Promise<T> {
-  const { skipCsrf = false, headers, ...rest } = options;
-  const method = (options.method ?? "GET").toUpperCase();
-  const needsCsrf = !skipCsrf && ["POST", "PUT", "PATCH", "DELETE"].includes(method);
-  const requestHeaders = new Headers(headers);
-
-  if (!(rest.body instanceof FormData) && !requestHeaders.has("Content-Type")) {
-    requestHeaders.set("Content-Type", "application/json");
-  }
-  if (needsCsrf) {
-    const token = csrfToken();
-    if (token) requestHeaders.set("X-CSRF-Token", token);
-  }
-
-  const response = await fetch(`${API_URL}${path}`, {
-    ...rest,
-    method,
-    headers: requestHeaders,
-    credentials: "include",
-  });
-
-  const text = await response.text();
+function parseResponse(text: string, status: number) {
   let data: unknown = null;
   if (text) {
     try {
@@ -93,14 +72,66 @@ export async function apiFetch<T>(path: string, options: ApiFetchOptions = {}): 
       data = text;
     }
   }
+  const message =
+    typeof data === "object" && data !== null && "detail" in data
+      ? String((data as { detail: unknown }).detail)
+      : `Request failed with status ${status}`;
+  return { data, message };
+}
 
-  if (!response.ok) {
-    const message =
-      typeof data === "object" && data !== null && "detail" in data
-        ? String((data as { detail: unknown }).detail)
-        : `Request failed with status ${response.status}`;
-    throw new ApiError(response.status, message, data);
+async function refreshCsrfToken() {
+  try {
+    const response = await fetch(`${API_URL}/api/v1/auth/session`, { credentials: "include" });
+    if (!response.ok) return "";
+    const { data } = parseResponse(await response.text(), response.status);
+    if (typeof data === "object" && data !== null && "csrf_token" in data) {
+      const token = (data as { csrf_token?: unknown }).csrf_token;
+      if (typeof token === "string" && token) {
+        rememberCsrfToken(token);
+        return token;
+      }
+    }
+  } catch {
+    return "";
+  }
+  return "";
+}
+
+export async function apiFetch<T>(path: string, options: ApiFetchOptions = {}): Promise<T> {
+  const { skipCsrf = false, headers, ...rest } = options;
+  const method = (options.method ?? "GET").toUpperCase();
+  const needsCsrf = !skipCsrf && ["POST", "PUT", "PATCH", "DELETE"].includes(method);
+  const baseHeaders = new Headers(headers);
+
+  if (!(rest.body instanceof FormData) && !baseHeaders.has("Content-Type")) {
+    baseHeaders.set("Content-Type", "application/json");
   }
 
-  return data as T;
+  const perform = (token: string) => {
+    const requestHeaders = new Headers(baseHeaders);
+    if (needsCsrf && token) requestHeaders.set("X-CSRF-Token", token);
+    return fetch(`${API_URL}${path}`, {
+      ...rest,
+      method,
+      headers: requestHeaders,
+      credentials: "include",
+    });
+  };
+
+  let response = await perform(csrfToken());
+  let parsed = parseResponse(await response.text(), response.status);
+
+  if (!response.ok && response.status === 403 && needsCsrf && parsed.message.toLowerCase().includes("csrf")) {
+    const freshToken = await refreshCsrfToken();
+    if (freshToken) {
+      response = await perform(freshToken);
+      parsed = parseResponse(await response.text(), response.status);
+    }
+  }
+
+  if (!response.ok) {
+    throw new ApiError(response.status, parsed.message, parsed.data);
+  }
+
+  return parsed.data as T;
 }
