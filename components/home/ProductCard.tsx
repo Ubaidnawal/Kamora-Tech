@@ -29,6 +29,9 @@ export function ProductCard({ product, wide }: ProductCardProps) {
       : hasReviews && summary
         ? `${summary.review_count} review${summary.review_count === 1 ? "" : "s"}`
         : "No reviews yet";
+  const cardPrice = product.price ?? summary?.price;
+  const cardCurrency = product.currency ?? summary?.currency;
+  const isAvailable = product.is_available !== false;
 
   return (
     <article className="group/card flex h-full flex-col overflow-hidden rounded-xl border border-[#e5e5e5] bg-[#FFFFFF] text-[#0B0B0B] shadow-[0_2px_10px_rgba(11,11,11,0.06)] transition-all duration-300 ease-editorial hover:-translate-y-1.5 hover:border-brass/35 hover:shadow-[0_18px_40px_rgba(11,11,11,0.12),0_8px_20px_rgba(139,13,26,0.08)] focus-within:border-brass/50 focus-within:shadow-[0_18px_40px_rgba(11,11,11,0.12),0_8px_20px_rgba(139,13,26,0.08)] motion-reduce:transition-none motion-reduce:hover:translate-y-0">
@@ -52,6 +55,11 @@ export function ProductCard({ product, wide }: ProductCardProps) {
                 rowAtLg ? "lg:h-full lg:aspect-auto" : ""
               } ${rowAtXl ? "xl:h-full xl:aspect-auto" : ""}`}
             />
+            {product.badge && (
+              <span className="absolute left-4 top-4 border border-[#B00020] bg-[#B00020] px-3 py-1 font-sans text-[10px] font-semibold uppercase tracking-[0.14em] text-[#FFFFFF]">
+                {product.badge}
+              </span>
+            )}
           </Link>
 
           <div className="flex flex-1 flex-col p-6">
@@ -62,6 +70,9 @@ export function ProductCard({ product, wide }: ProductCardProps) {
               </Link>
             </h3>
             <p className="mt-3 text-sm leading-relaxed text-[#333333]">{product.summary}</p>
+            <p className={`mt-2 font-sans text-[10px] font-semibold uppercase tracking-[0.14em] ${isAvailable ? "text-[#15803D]" : "text-[#B00020]"}`}>
+              {isAvailable ? "Available" : "Currently unavailable"}
+            </p>
 
             <div className="mt-5 border-t border-[#e5e5e5] pt-4">
               <div className="flex flex-wrap items-center gap-x-2 gap-y-1.5">
@@ -79,7 +90,7 @@ export function ProductCard({ product, wide }: ProductCardProps) {
                 </span>
               </div>
               <p className="mt-2 font-sans text-sm font-semibold tracking-[0.01em] text-brass">
-                {formatMoney(summary?.price, summary?.currency)}
+                {formatMoney(cardPrice, cardCurrency)}
               </p>
             </div>
 
@@ -100,7 +111,7 @@ export function ProductCard({ product, wide }: ProductCardProps) {
                 Details
                 <ArrowUpRight size={15} aria-hidden="true" />
               </Link>
-              <AddToCartButton slug={product.slug} className="w-full" />
+              <AddToCartButton slug={product.slug} className="w-full" disabled={!isAvailable} />
             </div>
           </div>
         </div>

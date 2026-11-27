@@ -324,3 +324,52 @@ button {
   backdrop-filter: blur(14px);
   backface-visibility: hidden;
 }
+
+.admin-theme {
+  --color-burgundy: #B00020;
+  --border: #B00020;
+  --accent: #B00020;
+  --brass: #B00020;
+  --color-success: #15803D;
+  --color-warning: #FDE047;
+  --color-info: #1D4ED8;
+  background: #ffffff;
+  color: #000000;
+}
+
+.admin-theme .admin-sidebar {
+  background: #b00020;
+  color: #000000;
+}
+
+.admin-print-only {
+  display: none;
+}
+
+@media print {
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+  }
+
+  body.printing-invoice .admin-shell-main > * {
+    visibility: hidden;
+  }
+
+  body.printing-invoice .admin-invoice-print {
+    visibility: visible;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    box-shadow: none;
+  }
+
+  body.printing-invoice .admin-invoice-print * {
+    visibility: visible;
+  }
+
+  .admin-invoice-print {
+    border: 0;
+  }
+}

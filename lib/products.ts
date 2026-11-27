@@ -31,6 +31,10 @@ export type Product = {
   benefits: string[];
   tags: string[];
   visual: ProductVisualVariant;
+  badge?: string | null;
+  is_available?: boolean;
+  price?: number | null;
+  currency?: string;
 };
 
 const website = serviceCategories.find((category) => category.id === "website")!;

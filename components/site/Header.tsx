@@ -68,7 +68,7 @@ function AccountMenu({ compact = false, onNavigate }: { compact?: boolean; onNav
   };
 
   const menuItems = [
-    { label: "My Account", href: "/dashboard/" },
+    { label: "My Account", href: "/account/" },
     { label: "My Orders", href: "/orders/" },
     { label: "Profile", href: "/profile/" },
   ];
@@ -499,7 +499,7 @@ export function Header() {
                   <div>
                     <p className="eyebrow mb-4">Signed in as {user?.full_name || user?.email}</p>
                     <div className="grid grid-cols-2 gap-3">
-                      <Link href="/dashboard/" onClick={() => setMenuOpen(false)} className="btn-outline !min-h-12 !px-4 !py-3 !text-[10px]">
+                      <Link href="/account/" onClick={() => setMenuOpen(false)} className="btn-outline !min-h-12 !px-4 !py-3 !text-[10px]">
                         My Account
                       </Link>
                       <Link href="/orders/" onClick={() => setMenuOpen(false)} className="btn-outline !min-h-12 !px-4 !py-3 !text-[10px]">

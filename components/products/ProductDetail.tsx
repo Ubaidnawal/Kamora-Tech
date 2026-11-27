@@ -1,14 +1,49 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import { ArrowLeft, ArrowUpRight, Check, Mail } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { AddToCartButton } from "@/components/cart/AddToCartButton";
 import { ProductReviews } from "@/components/reviews/ProductReviews";
 import { Reveal } from "@/components/site/Reveal";
+import { apiFetch } from "@/lib/api";
+import { formatMoney, type ApiProduct } from "@/lib/commerce";
 import { getRelatedProducts, productInquiryHref, type Product } from "@/lib/products";
 
+type ProductOverlay = Partial<Pick<Product, "name" | "summary" | "description" | "image" | "category" | "price" | "currency" | "badge" | "is_available">>;
+
 export function ProductDetail({ product }: { product: Product }) {
+  const [overlay, setOverlay] = useState<ProductOverlay>({});
+
+  useEffect(() => {
+    let active = true;
+    apiFetch<ApiProduct>(`/api/v1/products/${encodeURIComponent(product.slug)}`, { skipCsrf: true })
+      .then((data) => {
+        if (!active) return;
+        const primary = data.images?.find((image) => image.is_primary) ?? data.images?.[0];
+        setOverlay({
+          name: data.name || product.name,
+          summary: data.short_description || data.description || product.summary,
+          description: data.description || product.description,
+          image: primary?.url || product.image,
+          category: data.category?.name || product.category,
+          price: data.price ?? null,
+          currency: data.currency || product.currency || "USD",
+          badge: data.badge ?? null,
+          is_available: data.is_available ?? true,
+        });
+      })
+      .catch(() => undefined);
+    return () => {
+      active = false;
+    };
+  }, [product.currency, product.description, product.image, product.name, product.slug, product.summary, product.category]);
+
+  const view: Product = { ...product, ...overlay };
   const related = getRelatedProducts(product);
-  const mailto = productInquiryHref(product);
+  const mailto = productInquiryHref(view);
+  const isAvailable = view.is_available !== false;
 
   return (
     <>
@@ -20,20 +55,29 @@ export function ProductDetail({ product }: { product: Product }) {
             <span>/</span>
             <Link href="/#products" className="transition-colors hover:text-brass">Products</Link>
             <span>/</span>
-            <span className="text-brass">{product.name}</span>
+            <span className="text-brass">{view.name}</span>
           </nav>
 
           <div className="mt-12 grid gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:gap-20">
             <Reveal>
               <div className="mb-8 flex items-center gap-4">
-                <span className="font-condense text-sm tracking-[0.2em] text-brass">{product.category}</span>
+                <span className="font-condense text-sm tracking-[0.2em] text-brass">{view.category}</span>
                 <span className="h-px w-10 bg-brass/70" />
                 <span className="eyebrow">Kamora solution</span>
               </div>
-              <h1 className="display-xl text-[clamp(2.8rem,7vw,6rem)] text-paper-pure">{product.name}</h1>
-              <p className="body-copy mt-7">{product.summary}</p>
+              <h1 className="display-xl text-[clamp(2.8rem,7vw,6rem)] text-paper-pure">{view.name}</h1>
+              {view.badge && (
+                <span className="mt-5 inline-flex border border-brass bg-brass px-3 py-1 font-sans text-[10px] font-semibold uppercase tracking-[0.16em] text-paper-pure">
+                  {view.badge}
+                </span>
+              )}
+              <p className="body-copy mt-7">{view.summary}</p>
+              <p className="mt-4 font-sans text-lg font-semibold text-brass">{formatMoney(view.price ?? null, view.currency ?? "USD")}</p>
+              <p className={`mt-2 font-sans text-[11px] font-semibold uppercase tracking-[0.14em] ${isAvailable ? "text-[#15803D]" : "text-burgundy"}`}>
+                {isAvailable ? "Available to order" : "Currently unavailable"}
+              </p>
               <div className="mt-10 flex flex-wrap gap-3">
-                <AddToCartButton slug={product.slug} label={`Add ${product.name} to cart`} />
+                <AddToCartButton slug={view.slug} label={`Add ${view.name} to cart`} disabled={!isAvailable} />
                 <a href={mailto} className="btn-outline">
                   <Mail size={16} aria-hidden="true" />
                   Enquire about this solution
@@ -45,16 +89,21 @@ export function ProductDetail({ product }: { product: Product }) {
             </Reveal>
 
             <Reveal delay={0.1}>
-              <figure className="overflow-hidden rounded-2xl border border-paper/10 bg-surface p-3 shadow-2xl shadow-black/60">
+              <figure className="relative overflow-hidden rounded-2xl border border-paper/10 bg-surface p-3 shadow-2xl shadow-black/60">
                 <Image
-                  src={product.image}
-                  alt={`${product.name} interface preview`}
+                  src={view.image}
+                  alt={`${view.name} interface preview`}
                   width={1200}
                   height={900}
                   loading="lazy"
                   decoding="async"
                   className="aspect-[4/3] w-full rounded-xl object-cover"
                 />
+                {view.badge && (
+                  <span className="absolute left-6 top-6 border border-brass bg-brass px-3 py-1 font-sans text-[10px] font-semibold uppercase tracking-[0.14em] text-paper-pure">
+                    {view.badge}
+                  </span>
+                )}
               </figure>
             </Reveal>
           </div>
@@ -66,9 +115,9 @@ export function ProductDetail({ product }: { product: Product }) {
           <Reveal>
             <p className="eyebrow">Overview</p>
             <h2 className="mt-5 font-title text-3xl font-medium uppercase tracking-wide text-paper-pure">Built for the way you work.</h2>
-            <p className="body-copy mt-6">{product.description}</p>
+            <p className="body-copy mt-6">{view.description}</p>
             <Link href={product.categoryHref} className="link-underline mt-8 inline-flex items-center gap-2 font-sans text-[10px] font-semibold uppercase tracking-[0.16em] text-brass">
-              View {product.category}
+              View {view.category}
               <ArrowUpRight size={14} aria-hidden="true" />
             </Link>
           </Reveal>
@@ -97,7 +146,7 @@ export function ProductDetail({ product }: { product: Product }) {
         </div>
       </section>
 
-      <ProductReviews slug={product.slug} />
+      <ProductReviews slug={view.slug} />
 
       {related.length > 0 && (
         <section className="border-t border-white/10 bg-ink py-20 lg:py-28">
@@ -139,7 +188,7 @@ export function ProductDetail({ product }: { product: Product }) {
 
       <section className="border-t border-white/10 bg-background py-16">
         <div className="site-container flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
-          <p className="font-title text-2xl uppercase tracking-wide text-paper-pure">Ready to discuss {product.name}?</p>
+          <p className="font-title text-2xl uppercase tracking-wide text-paper-pure">Ready to discuss {view.name}?</p>
           <div className="flex flex-wrap gap-3">
             <a href={mailto} className="btn-primary">Contact us</a>
             <Link href="/cart/" className="btn-outline">View cart</Link>

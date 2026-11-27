@@ -85,13 +85,13 @@ export function DashboardView() {
 
   const sidebarLinks: SidebarLink[] = useMemo(
     () => [
-      { label: "Overview", href: "/dashboard/", icon: LayoutDashboard },
+      { label: "Overview", href: "/account/", icon: LayoutDashboard },
       { label: "My Orders", href: "/orders/", icon: Package, count: counts.total },
       { label: "Browse Products", href: "/#products", icon: Grid2X2 },
       { label: "Shopping Cart", href: "/cart/", icon: ShoppingCart, count: cartCount },
       { label: "Order Tracking", href: "/track/", icon: Search },
-      { label: "My Profile", href: "/dashboard/#profile", icon: UserRound },
-      { label: "Settings", href: "/dashboard/#settings", icon: Settings },
+      { label: "My Profile", href: "/account/#profile", icon: UserRound },
+      { label: "Settings", href: "/account/#settings", icon: Settings },
     ],
     [cartCount, counts.total],
   );

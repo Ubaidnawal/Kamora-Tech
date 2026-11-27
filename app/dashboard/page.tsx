@@ -1,44 +1,30 @@
-import type { Metadata } from "next";
-import { ChevronRight } from "lucide-react";
-import Link from "next/link";
-import { DashboardView } from "@/components/account/DashboardView";
+"use client";
 
-export const metadata: Metadata = {
-  title: "Dashboard",
-  description: "Your Kamora Tech account overview, orders and project progress.",
-  robots: { index: false, follow: false },
-};
+import { useEffect, useState } from "react";
+import AdminDashboardPage from "@/app/admin/page";
+import { AdminShell } from "@/components/admin/AdminShell";
+import { SettingsPanel } from "@/components/admin/SettingsPanel";
 
 export default function DashboardPage() {
-  return (
-    <>
-      <section className="relative overflow-hidden border-b border-white/10 bg-background pt-36 lg:pt-44">
-        <div className="pointer-events-none absolute inset-0 bg-grid opacity-60" aria-hidden="true" />
-        <div className="site-container relative pb-14 lg:pb-20">
-          <nav aria-label="Breadcrumb" className="flex items-center gap-2 font-sans text-[10px] uppercase tracking-[0.18em] text-paper-faint">
-            <Link href="/" className="transition-colors hover:text-brass">Home</Link>
-            <ChevronRight size={12} aria-hidden="true" />
-            <span className="text-brass">Dashboard</span>
-          </nav>
-          <div className="mt-12 max-w-3xl">
-            <div className="mb-8 flex items-center gap-4">
-              <span className="font-condense text-sm tracking-[0.2em] text-brass">01</span>
-              <span className="h-px w-10 bg-brass/70" />
-              <span className="eyebrow">Account overview</span>
-            </div>
-            <h1 className="display-xl text-[clamp(2.8rem,7vw,6rem)] text-paper-pure">Your workspace.</h1>
-            <p className="body-copy mt-7">
-              Review real order data, track active projects and keep your account details in one secure place.
-            </p>
-          </div>
-        </div>
-      </section>
+  const [section, setSection] = useState<"overview" | "settings">("overview");
 
-      <section className="bg-background py-20 lg:py-28">
-        <div className="site-container">
-          <DashboardView />
-        </div>
-      </section>
-    </>
-  );
+  useEffect(() => {
+    const sync = () => {
+      const hash = window.location.hash.replace(/^#/, "").toLowerCase();
+      setSection(hash === "settings" ? "settings" : "overview");
+    };
+    sync();
+    window.addEventListener("hashchange", sync);
+    return () => window.removeEventListener("hashchange", sync);
+  }, []);
+
+  if (section === "settings") {
+    return (
+      <AdminShell title="Settings" description="Manage site settings and administrator session information.">
+        <SettingsPanel />
+      </AdminShell>
+    );
+  }
+
+  return <AdminDashboardPage />;
 }

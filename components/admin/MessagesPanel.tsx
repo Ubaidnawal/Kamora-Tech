@@ -64,11 +64,11 @@ export function MessagesPanel() {
   return (
     <div className="space-y-6">
       {actionError && (
-        <div role="alert" className={`${cardClass} border-burgundy/60 text-sm text-cream`}>
+        <div role="alert" className={`${cardClass} border-[#B00020]/60 text-sm text-[#000000]`}>
           {actionError}
         </div>
       )}
-      {actionMessage && <div className={`${cardClass} text-sm text-cream`}>{actionMessage}</div>}
+      {actionMessage && <div className={`${cardClass} text-sm text-[#000000]`}>{actionMessage}</div>}
 
       <AdminPanel title="Inbox filter" description="Messages returned by the admin messages endpoint.">
         <label className="block max-w-xs">
@@ -95,25 +95,25 @@ export function MessagesPanel() {
               <article key={message.id} className={cardClass}>
                 <div className="flex flex-wrap items-start justify-between gap-3">
                   <div className="min-w-0">
-                    <p className="font-sans text-[10px] uppercase tracking-[0.16em] text-burgundy">{message.subject}</p>
-                    <p className="mt-2 font-sans text-sm font-medium text-cream">
-                      {message.user_name ?? "Unknown sender"} <span className="text-cream/45">· {message.user_email ?? "No email"}</span>
+                    <p className="font-sans text-[10px] uppercase tracking-[0.16em] text-[#B00020]">{message.subject}</p>
+                    <p className="mt-2 font-sans text-sm font-medium text-[#000000]">
+                      {message.user_name ?? "Unknown sender"} <span className="text-[#000000]/45">· {message.user_email ?? "No email"}</span>
                     </p>
-                    <p className="mt-1 font-sans text-[10px] text-cream/40"><DateText value={message.created_at} withTime /></p>
+                    <p className="mt-1 font-sans text-[10px] text-[#000000]/40"><DateText value={message.created_at} withTime /></p>
                   </div>
                   <StatusBadge value={message.status} />
                 </div>
 
-                <p className="mt-4 whitespace-pre-line font-sans text-sm leading-relaxed text-cream/75">{message.message}</p>
+                <p className="mt-4 whitespace-pre-line font-sans text-sm leading-relaxed text-[#000000]/75">{message.message}</p>
 
                 {message.admin_reply && (
-                  <div className="mt-4 border-l border-burgundy pl-4">
+                  <div className="mt-4 border-l border-[#B00020] pl-4">
                     <p className={labelClass}>Existing reply</p>
-                    <p className="mt-2 whitespace-pre-line font-sans text-sm leading-relaxed text-cream/65">{message.admin_reply}</p>
+                    <p className="mt-2 whitespace-pre-line font-sans text-sm leading-relaxed text-[#000000]/65">{message.admin_reply}</p>
                   </div>
                 )}
 
-                <div className="mt-5 grid gap-4 border-t border-cream/10 pt-5 sm:grid-cols-[1fr_auto]">
+                <div className="mt-5 grid gap-4 border-t border-[#E2E2E2]/10 pt-5 sm:grid-cols-[1fr_auto]">
                   <label>
                     <span className={labelClass}>Reply</span>
                     <textarea

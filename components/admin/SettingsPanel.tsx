@@ -104,9 +104,9 @@ export function SettingsPanel() {
         </AdminPanel>
 
         <AdminPanel title="Session security" description="How this console authenticates requests.">
-          <ul className="space-y-3 font-sans text-xs leading-relaxed text-cream/65">
-            <li className="border-b border-cream/10 pb-3">Session cookies are sent with every request using credentials include.</li>
-            <li className="border-b border-cream/10 pb-3">CSRF tokens are read from the csrf_token cookie and sent as X-CSRF-Token for POST, PUT, PATCH and DELETE.</li>
+          <ul className="space-y-3 font-sans text-xs leading-relaxed text-[#000000]/65">
+            <li className="border-b border-[#E2E2E2]/10 pb-3">Session cookies are sent with every request using credentials include.</li>
+            <li className="border-b border-[#E2E2E2]/10 pb-3">CSRF tokens are read from the csrf_token cookie and sent as X-CSRF-Token for POST, PUT, PATCH and DELETE.</li>
             <li>Account roles are checked with the authenticated user context before the console is shown.</li>
           </ul>
           <p className={`${noteClass} mt-5`}>
@@ -128,7 +128,7 @@ export function SettingsPanel() {
         ) : (
           <div className="space-y-5">
             {actionError && (
-              <div role="alert" className={`${cardClass} border-burgundy/60 text-sm text-cream`}>
+              <div role="alert" className={`${cardClass} border-[#B00020]/60 text-sm text-[#000000]`}>
                 {actionError}
               </div>
             )}
@@ -139,15 +139,15 @@ export function SettingsPanel() {
                 <div key={setting.key} className={cardClass}>
                   <div className="flex flex-wrap items-start justify-between gap-3">
                     <div className="min-w-0">
-                      <p className="font-sans text-sm font-medium text-cream">{setting.key}</p>
-                      <p className="mt-1 font-sans text-[11px] text-cream/55">
+                      <p className="font-sans text-sm font-medium text-[#000000]">{setting.key}</p>
+                      <p className="mt-1 font-sans text-[11px] text-[#000000]/55">
                         {setting.description || "No description provided."}
                       </p>
                     </div>
                     <div className="flex flex-wrap items-center gap-2">
                       <StatusBadge value={hidden ? "hidden" : "editable"} />
                       {setting.updated_at && (
-                        <span className="font-sans text-[10px] text-cream/40">
+                        <span className="font-sans text-[10px] text-[#000000]/40">
                           Updated <DateText value={setting.updated_at} withTime />
                         </span>
                       )}
@@ -162,7 +162,7 @@ export function SettingsPanel() {
                     <>
                       <div className="mt-4 grid gap-4 md:grid-cols-2">
                         <label>
-                          <span className="block font-sans text-[10px] font-semibold uppercase tracking-[0.16em] text-cream/55">
+                          <span className="block font-sans text-[10px] font-semibold uppercase tracking-[0.16em] text-[#000000]/55">
                             Value (JSON object)
                           </span>
                           <textarea
@@ -173,7 +173,7 @@ export function SettingsPanel() {
                           />
                         </label>
                         <label>
-                          <span className="block font-sans text-[10px] font-semibold uppercase tracking-[0.16em] text-cream/55">
+                          <span className="block font-sans text-[10px] font-semibold uppercase tracking-[0.16em] text-[#000000]/55">
                             Description
                           </span>
                           <textarea
@@ -209,7 +209,7 @@ export function SettingsPanel() {
                           Reset
                         </button>
                         {savedKey === setting.key && (
-                          <span className="font-sans text-[11px] text-cream/60">Saved.</span>
+                          <span className="font-sans text-[11px] text-[#000000]/60">Saved.</span>
                         )}
                       </div>
                     </>

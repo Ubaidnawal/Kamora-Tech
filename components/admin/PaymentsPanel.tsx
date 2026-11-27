@@ -72,7 +72,7 @@ export function PaymentsPanel() {
             : "Primary source: GET /api/v1/admin/payments returns individual payment records."
         }
       >
-        <p className={`${noteClass} ${usingFallback ? "text-burgundy" : ""}`}>
+        <p className={`${noteClass} ${usingFallback ? "text-[#B00020]" : ""}`}>
           {usingFallback
             ? `Unavailable endpoint: ${payments.error}. Data below is not from the payments list API and is shown only as a fallback.`
             : "Amounts, statuses, providers, references and dates come directly from the admin payments response. Revenue totals come from the paid-only report."}
@@ -80,7 +80,7 @@ export function PaymentsPanel() {
       </AdminPanel>
 
       {reports.error && (
-        <div role="alert" className={`${cardClass} border-burgundy/60 text-sm text-cream`}>
+        <div role="alert" className={`${cardClass} border-[#B00020]/60 text-sm text-[#000000]`}>
           Report totals are unavailable: {reports.error}
         </div>
       )}
@@ -105,7 +105,7 @@ export function PaymentsPanel() {
           {paymentStatuses.map(([status, count]) => (
             <div key={status} className={`${cardClass} flex items-center justify-between gap-4`}>
               <StatusBadge value={status} />
-              <span className="font-condense text-xl text-cream">{count}</span>
+              <span className="font-condense text-xl text-[#000000]">{count}</span>
             </div>
           ))}
           {paymentStatuses.length === 0 && <p className={noteClass}>No payment status counts were returned.</p>}
@@ -147,9 +147,9 @@ export function PaymentsPanel() {
               if (key === "payment") {
                 return (
                   <div>
-                    <p className="font-sans text-xs font-medium text-cream">{payment.id}</p>
+                    <p className="font-sans text-xs font-medium text-[#000000]">{payment.id}</p>
                     {payment.customer_name && (
-                      <p className="mt-1 font-sans text-[10px] text-cream/45">{payment.customer_name}</p>
+                      <p className="mt-1 font-sans text-[10px] text-[#000000]/45">{payment.customer_name}</p>
                     )}
                   </div>
                 );
@@ -157,9 +157,9 @@ export function PaymentsPanel() {
               if (key === "order") {
                 return (
                   <div>
-                    <p className="font-sans text-xs text-cream/80">{payment.order_number ?? payment.order_id}</p>
+                    <p className="font-sans text-xs text-[#000000]/80">{payment.order_number ?? payment.order_id}</p>
                     {payment.order_number && (
-                      <p className="mt-1 font-sans text-[10px] text-cream/40">{payment.order_id}</p>
+                      <p className="mt-1 font-sans text-[10px] text-[#000000]/40">{payment.order_id}</p>
                     )}
                   </div>
                 );
@@ -168,9 +168,9 @@ export function PaymentsPanel() {
                 return <span className="font-sans text-sm"><Money value={payment.amount} currency={payment.currency} /></span>;
               }
               if (key === "status") return <StatusBadge value={payment.status} />;
-              if (key === "provider") return <span className="font-sans text-xs text-cream/65">{payment.provider ?? "—"}</span>;
+              if (key === "provider") return <span className="font-sans text-xs text-[#000000]/65">{payment.provider ?? "—"}</span>;
               if (key === "reference") {
-                return <span className="font-sans text-[11px] text-cream/50">{payment.provider_reference ?? "—"}</span>;
+                return <span className="font-sans text-[11px] text-[#000000]/50">{payment.provider_reference ?? "—"}</span>;
               }
               if (key === "paid") return <DateText value={payment.paid_at} withTime />;
               return <DateText value={payment.created_at} withTime />;
@@ -179,13 +179,13 @@ export function PaymentsPanel() {
               <div className={cardClass}>
                 <div className="flex flex-wrap items-start justify-between gap-3">
                   <div>
-                    <p className="font-sans text-sm font-medium text-cream">{payment.order_number ?? payment.order_id}</p>
-                    <p className="mt-1 break-all font-sans text-[10px] text-cream/40">{payment.id}</p>
-                    {payment.customer_name && <p className="mt-1 font-sans text-[11px] text-cream/55">{payment.customer_name}</p>}
+                    <p className="font-sans text-sm font-medium text-[#000000]">{payment.order_number ?? payment.order_id}</p>
+                    <p className="mt-1 break-all font-sans text-[10px] text-[#000000]/40">{payment.id}</p>
+                    {payment.customer_name && <p className="mt-1 font-sans text-[11px] text-[#000000]/55">{payment.customer_name}</p>}
                   </div>
                   <StatusBadge value={payment.status} />
                 </div>
-                <div className="mt-4 grid gap-2 font-sans text-xs text-cream/65">
+                <div className="mt-4 grid gap-2 font-sans text-xs text-[#000000]/65">
                   <p><Money value={payment.amount} currency={payment.currency} /></p>
                   <p>{payment.provider ?? "No provider"}</p>
                   <p>{payment.provider_reference ?? "No reference"}</p>

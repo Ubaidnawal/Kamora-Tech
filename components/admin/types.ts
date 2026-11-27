@@ -46,6 +46,8 @@ export type AdminProduct = {
   specifications: Record<string, unknown>;
   price: number | null;
   currency: string;
+  badge?: string | null;
+  is_available?: boolean;
   status: ProductStatus;
   is_active: boolean;
   is_featured: boolean;
@@ -76,6 +78,8 @@ export type AdminProductPayload = {
   specifications: Record<string, unknown>;
   price: number | null;
   currency: string;
+  badge?: string | null;
+  is_available?: boolean;
   status: ProductStatus;
   is_active: boolean;
   is_featured: boolean;
@@ -131,6 +135,7 @@ export type AdminOrder = {
   business_name: string | null;
   project_requirements: string | null;
   additional_instructions: string | null;
+  delivery_info?: string | null;
   amount: number | null;
   currency: string;
   payment_status: PaymentStatus;
@@ -141,6 +146,32 @@ export type AdminOrder = {
   status_history: OrderStatusHistory[];
   created_at: string;
   updated_at: string | null;
+};
+
+export type AdminReview = {
+  id: string;
+  product_name: string | null;
+  product_slug?: string | null;
+  user_name: string | null;
+  user_email?: string | null;
+  rating: number;
+  review_text: string;
+  is_approved: boolean;
+  created_at: string;
+  updated_at?: string | null;
+};
+
+export type AdminComplaintSummary = {
+  id: string;
+  tracking_id?: string | null;
+  subject?: string | null;
+  category?: string | null;
+  priority?: string | null;
+  status?: string | null;
+  full_name?: string | null;
+  email?: string | null;
+  created_at?: string | null;
+  updated_at?: string | null;
 };
 
 export type AdminDashboard = {
@@ -157,6 +188,26 @@ export type AdminDashboard = {
   revenue_paid: number;
   recent_orders: AdminOrder[];
   recent_registrations: AdminUser[];
+  cancelled_orders?: number;
+  processing_orders?: number;
+  total_reviews?: number;
+  total_complaints?: number;
+  recent_complaints?: AdminComplaintSummary[];
+  recent_reviews?: AdminReview[];
+};
+
+export type AdminReviewList = {
+  items: AdminReview[];
+  total: number;
+  page: number;
+  page_size: number;
+};
+
+export type CustomerDetail = {
+  user: AdminUser;
+  orders: AdminOrder[];
+  complaints: AdminComplaintSummary[];
+  reviews: AdminReview[];
 };
 
 export type TopProduct = {

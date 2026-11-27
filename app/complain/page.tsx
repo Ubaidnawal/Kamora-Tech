@@ -1,12 +1,20 @@
 "use client";
 
 import { ArrowRight, Check, LoaderCircle, ShieldCheck } from "lucide-react";
+import Link from "next/link";
 import { useRef, useState, type FormEvent } from "react";
 import { PageHero } from "@/components/site/PageHero";
 import { Reveal } from "@/components/site/Reveal";
 import { apiFetch } from "@/lib/api";
+import {
+  complaintCategories,
+  complaintPriorities,
+  type ComplaintCategory,
+  type ComplaintCreateResponse,
+  type ComplaintPriority,
+} from "@/lib/complaints";
 
-type FieldName = "name" | "email" | "phone" | "subject" | "message";
+type FieldName = "name" | "email" | "phone" | "subject" | "category" | "priority" | "message";
 type Errors = Partial<Record<FieldName, string>>;
 
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -17,10 +25,12 @@ const initialValues: Record<FieldName, string> = {
   email: "",
   phone: "",
   subject: "",
+  category: complaintCategories[0],
+  priority: "medium",
   message: "",
 };
 
-const requiredFields: FieldName[] = ["name", "email", "subject", "message"];
+const requiredFields: FieldName[] = ["name", "email", "subject", "category", "message"];
 
 function validate(field: FieldName, value: string): string | undefined {
   if (field === "name" && value.trim().length < 2) return "Please enter your full name.";
@@ -29,6 +39,7 @@ function validate(field: FieldName, value: string): string | undefined {
     if (!emailPattern.test(value.trim())) return "Enter a valid address, for example name@company.com.";
   }
   if (field === "subject" && !value.trim()) return "Please enter a subject.";
+  if (field === "category" && !value.trim()) return "Please choose a category.";
   if (field === "message" && value.trim().length < 20) return "Please add a little more detail (at least 20 characters).";
   return undefined;
 }
@@ -38,8 +49,8 @@ export default function ComplainPage() {
   const [errors, setErrors] = useState<Errors>({});
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
-  const fields = useRef<Partial<Record<FieldName, HTMLInputElement | HTMLTextAreaElement | null>>>({});
+  const [trackingId, setTrackingId] = useState<string | null>(null);
+  const fields = useRef<Partial<Record<FieldName, HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement | null>>>({});
 
   const update = (field: FieldName, value: string) => {
     setValues((current) => ({ ...current, [field]: value }));
@@ -67,19 +78,21 @@ export default function ComplainPage() {
     setLoading(true);
 
     try {
-      await apiFetch("/api/v1/contact", {
+      const response = await apiFetch<ComplaintCreateResponse>("/api/v1/complaints", {
         method: "POST",
         body: JSON.stringify({
           full_name: values.name.trim(),
           email: values.email.trim(),
-          phone_number: values.phone.trim() || null,
-          subject: `Complaint — ${values.subject.trim()}`,
-          message: values.message.trim(),
+          phone: values.phone.trim() || undefined,
+          subject: values.subject.trim(),
+          category: values.category as ComplaintCategory,
+          description: values.message.trim(),
+          priority: values.priority as ComplaintPriority,
         }),
       });
-      setSubmitted(true);
-    } catch {
-      setSubmitError(submitErrorText);
+      setTrackingId(response.tracking_id ?? null);
+    } catch (caught) {
+      setSubmitError(caught instanceof Error && caught.message ? caught.message : submitErrorText);
     } finally {
       setLoading(false);
     }
@@ -140,22 +153,31 @@ export default function ComplainPage() {
           </Reveal>
 
           <Reveal delay={0.1}>
-            {submitted ? (
+            {trackingId ? (
               <div role="status" className="flex min-h-[560px] flex-col items-start justify-center border border-brass/30 bg-surface p-8 sm:p-12">
                 <span className="flex h-14 w-14 items-center justify-center border border-brass/50 text-brass">
                   <Check size={26} strokeWidth={1.4} aria-hidden="true" />
                 </span>
                 <h2 className="display-md mt-8 text-3xl text-paper-pure sm:text-4xl">Complaint sent</h2>
                 <p className="body-copy mt-5">
-                  Thank you — your complaint has reached our team. We will review it carefully and get back to you with a clear next step.
+                  Thank you — your complaint has reached our team. Keep the tracking ID below to check its status at any time.
                 </p>
-                <button
-                  type="button"
-                  onClick={() => { setValues(initialValues); setErrors({}); setSubmitError(null); setSubmitted(false); }}
-                  className="mt-8 min-h-11 border-b border-white/30 pb-1 font-sans text-xs uppercase tracking-widest text-paper-dim transition-colors hover:text-brass"
-                >
-                  Send another complaint
-                </button>
+                <div className="mt-7 w-full border border-white/15 bg-background p-5">
+                  <p className="font-sans text-[10px] font-semibold uppercase tracking-[0.18em] text-paper-faint">Tracking ID</p>
+                  <p className="mt-2 break-all font-condense text-2xl tracking-[0.08em] text-brass">{trackingId}</p>
+                </div>
+                <div className="mt-7 flex flex-wrap gap-4">
+                  <Link href={`/track-complaint/?id=${encodeURIComponent(trackingId)}`} className="btn-primary">
+                    Track this complaint <ArrowRight size={16} aria-hidden="true" />
+                  </Link>
+                  <button
+                    type="button"
+                    onClick={() => { setValues(initialValues); setErrors({}); setSubmitError(null); setTrackingId(null); }}
+                    className="min-h-11 border-b border-white/30 pb-1 font-sans text-xs uppercase tracking-widest text-paper-dim transition-colors hover:text-brass"
+                  >
+                    Send another complaint
+                  </button>
+                </div>
               </div>
             ) : (
               <form onSubmit={onSubmit} noValidate aria-busy={loading} className="border border-white/10 bg-surface p-6 sm:p-10 lg:p-12">
@@ -230,6 +252,34 @@ export default function ComplainPage() {
                       className={inputClass("subject")}
                     />
                     {errors.subject && <p id="subject-error" role="alert" className="mt-2 text-xs text-paper-pure">{errors.subject}</p>}
+                  </div>
+
+                  <div>
+                    <label htmlFor="category" className="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-paper-dim">Category <span className="text-brass">*</span></label>
+                    <select
+                      ref={(el) => { fields.current.category = el; }}
+                      id="category" name="category"
+                      value={values.category}
+                      onChange={(event) => update("category", event.target.value)}
+                      disabled={loading}
+                      className={inputClass("category")}
+                    >
+                      {complaintCategories.map((category) => <option key={category} value={category}>{category}</option>)}
+                    </select>
+                  </div>
+
+                  <div>
+                    <label htmlFor="priority" className="font-sans text-[11px] font-semibold uppercase tracking-[0.16em] text-paper-dim">Priority</label>
+                    <select
+                      ref={(el) => { fields.current.priority = el; }}
+                      id="priority" name="priority"
+                      value={values.priority}
+                      onChange={(event) => update("priority", event.target.value)}
+                      disabled={loading}
+                      className={inputClass("priority")}
+                    >
+                      {complaintPriorities.map((priority) => <option key={priority} value={priority}>{priority}</option>)}
+                    </select>
                   </div>
                 </div>
 

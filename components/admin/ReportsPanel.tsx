@@ -86,17 +86,17 @@ export function ReportsPanel() {
       >
         {reports.data.monthly_orders.length ? (
           <div className="font-sans text-xs">
-            <div className="grid grid-cols-2 gap-4 border-b border-burgundy/30 pb-2 text-[10px] font-semibold uppercase tracking-[0.14em] text-cream/50">
+            <div className="grid grid-cols-2 gap-4 border-b border-[#B00020]/30 pb-2 text-[10px] font-semibold uppercase tracking-[0.14em] text-[#000000]/50">
               <span>Month</span>
               <span className="text-right">Orders</span>
             </div>
             {reports.data.monthly_orders.map((entry) => (
               <div
                 key={entry.month}
-                className="grid grid-cols-2 gap-4 border-b border-cream/10 py-2 text-cream/75 last:border-0"
+                className="grid grid-cols-2 gap-4 border-b border-[#E2E2E2]/10 py-2 text-[#000000]/75 last:border-0"
               >
                 <span>{entry.month}</span>
-                <span className="text-right font-condense text-base text-cream">{entry.orders}</span>
+                <span className="text-right font-condense text-base text-[#000000]">{entry.orders}</span>
               </div>
             ))}
           </div>
@@ -109,9 +109,9 @@ export function ReportsPanel() {
         <AdminPanel title="Orders by status" description="Real counts grouped from the orders table.">
           <div className="space-y-2">
             {orderStatuses.map(([status, count]) => (
-              <div key={status} className="flex items-center justify-between gap-4 border-b border-cream/10 py-2 font-sans text-xs">
-                <span className="uppercase tracking-[0.12em] text-cream/70">{status.replaceAll("_", " ")}</span>
-                <span className="font-condense text-lg text-cream">{count}</span>
+              <div key={status} className="flex items-center justify-between gap-4 border-b border-[#E2E2E2]/10 py-2 font-sans text-xs">
+                <span className="uppercase tracking-[0.12em] text-[#000000]/70">{status.replaceAll("_", " ")}</span>
+                <span className="font-condense text-lg text-[#000000]">{count}</span>
               </div>
             ))}
           </div>
@@ -120,9 +120,9 @@ export function ReportsPanel() {
         <AdminPanel title="Payments by status" description="Real counts grouped from the payments table.">
           <div className="space-y-2">
             {paymentStatuses.map(([status, count]) => (
-              <div key={status} className="flex items-center justify-between gap-4 border-b border-cream/10 py-2 font-sans text-xs">
-                <span className="uppercase tracking-[0.12em] text-cream/70">{status.replaceAll("_", " ")}</span>
-                <span className="font-condense text-lg text-cream">{count}</span>
+              <div key={status} className="flex items-center justify-between gap-4 border-b border-[#E2E2E2]/10 py-2 font-sans text-xs">
+                <span className="uppercase tracking-[0.12em] text-[#000000]/70">{status.replaceAll("_", " ")}</span>
+                <span className="font-condense text-lg text-[#000000]">{count}</span>
               </div>
             ))}
           </div>
@@ -133,12 +133,12 @@ export function ReportsPanel() {
         {reports.data.top_products.length ? (
           <div className="space-y-3">
             {reports.data.top_products.map((product, index) => (
-              <div key={`${product.product_name}-${index}`} className="flex flex-wrap items-center justify-between gap-4 border border-cream/10 bg-cream/[0.02] px-4 py-3">
+              <div key={`${product.product_name}-${index}`} className="flex flex-wrap items-center justify-between gap-4 border border-[#E2E2E2]/10 bg-[#FAFAFA] px-4 py-3">
                 <div className="min-w-0">
-                  <p className="font-sans text-sm text-cream">{product.product_name}</p>
-                  <p className="mt-1 font-sans text-[10px] text-cream/45">{product.units_sold} units sold in paid orders</p>
+                  <p className="font-sans text-sm text-[#000000]">{product.product_name}</p>
+                  <p className="mt-1 font-sans text-[10px] text-[#000000]/45">{product.units_sold} units sold in paid orders</p>
                 </div>
-                <p className="font-sans text-sm text-cream/80"><Money value={product.revenue} /></p>
+                <p className="font-sans text-sm text-[#000000]/80"><Money value={product.revenue} /></p>
               </div>
             ))}
           </div>

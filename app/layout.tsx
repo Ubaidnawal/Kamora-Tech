@@ -3,9 +3,7 @@ import { Inter, Oswald } from "next/font/google";
 import type { ReactNode } from "react";
 import { AuthProvider } from "@/components/auth/AuthProvider";
 import { CartProvider } from "@/components/cart/CartProvider";
-import { Footer } from "@/components/site/Footer";
-import { Header } from "@/components/site/Header";
-import { PageTransition } from "@/components/site/PageTransition";
+import { SiteChrome } from "@/components/site/SiteChrome";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
@@ -50,17 +48,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       <body>
         <AuthProvider>
           <CartProvider>
-            <a
-              href="#main-content"
-              className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:bg-brass focus:px-5 focus:py-3 focus:text-sm focus:font-semibold focus:text-paper-pure"
-            >
-              Skip to main content
-            </a>
-            <Header />
-            <main id="main-content">
-              <PageTransition>{children}</PageTransition>
-            </main>
-            <Footer />
+            <SiteChrome>{children}</SiteChrome>
           </CartProvider>
         </AuthProvider>
       </body>

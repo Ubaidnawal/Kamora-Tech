@@ -108,13 +108,13 @@ export function UsersPanel() {
             </select>
           </label>
         </div>
-        <p className="mt-4 font-sans text-[11px] leading-relaxed text-cream/45">
+        <p className="mt-4 font-sans text-[11px] leading-relaxed text-[#000000]/45">
           Password fields are never requested or displayed. The admin users response does not include credentials.
         </p>
       </AdminPanel>
 
       {actionError && (
-        <div role="alert" className={`${cardClass} border-burgundy/60 text-sm text-cream`}>
+        <div role="alert" className={`${cardClass} border-[#B00020]/60 text-sm text-[#000000]`}>
           {actionError}
         </div>
       )}
@@ -139,23 +139,23 @@ export function UsersPanel() {
             if (key === "user") {
               return (
                 <div>
-                  <p className="font-sans text-sm font-medium text-cream">{user.full_name}</p>
-                  <p className="mt-1 font-sans text-[10px] tracking-wide text-cream/40">{user.id}</p>
+                  <p className="font-sans text-sm font-medium text-[#000000]">{user.full_name}</p>
+                  <p className="mt-1 font-sans text-[10px] tracking-wide text-[#000000]/40">{user.id}</p>
                 </div>
               );
             }
             if (key === "contact") {
               return (
                 <div className="font-sans text-xs leading-relaxed">
-                  <p className="text-cream/85">{user.email}</p>
-                  <p className="text-cream/55">{user.phone}</p>
+                  <p className="text-[#000000]/85">{user.email}</p>
+                  <p className="text-[#000000]/55">{user.phone}</p>
                 </div>
               );
             }
             if (key === "roles") {
               return (
                 <div className="flex flex-wrap gap-1.5">
-                  {user.roles.length ? user.roles.map((role) => <StatusBadge key={role} value={role} />) : <span className="text-cream/40">—</span>}
+                  {user.roles.length ? user.roles.map((role) => <StatusBadge key={role} value={role} />) : <span className="text-[#000000]/40">—</span>}
                 </div>
               );
             }
@@ -185,18 +185,18 @@ export function UsersPanel() {
             <div className={cardClass}>
               <div className="flex flex-wrap items-start justify-between gap-3">
                 <div>
-                  <p className="font-sans text-sm font-medium text-cream">{user.full_name}</p>
-                  <p className="mt-1 font-sans text-[10px] text-cream/40">{user.id}</p>
+                  <p className="font-sans text-sm font-medium text-[#000000]">{user.full_name}</p>
+                  <p className="mt-1 font-sans text-[10px] text-[#000000]/40">{user.id}</p>
                 </div>
                 <StatusBadge value={user.status} />
               </div>
               <div className="mt-4 grid gap-3 font-sans text-xs">
-                <p className="text-cream/75">{user.email}</p>
-                <p className="text-cream/55">{user.phone}</p>
-                <p className="text-cream/55">Joined <DateText value={user.created_at} /></p>
+                <p className="text-[#000000]/75">{user.email}</p>
+                <p className="text-[#000000]/55">{user.phone}</p>
+                <p className="text-[#000000]/55">Joined <DateText value={user.created_at} /></p>
               </div>
               <div className="mt-4 flex flex-wrap gap-1.5">
-                {user.roles.length ? user.roles.map((role) => <StatusBadge key={role} value={role} />) : <span className="font-sans text-xs text-cream/40">No roles</span>}
+                {user.roles.length ? user.roles.map((role) => <StatusBadge key={role} value={role} />) : <span className="font-sans text-xs text-[#000000]/40">No roles</span>}
               </div>
               <label className="mt-4 block">
                 <span className={labelClass}>Update status</span>

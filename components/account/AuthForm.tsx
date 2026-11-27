@@ -277,7 +277,7 @@ export function LoginForm() {
     try {
       const profile = await login(email.trim(), password, remember);
       if (!profile) throw new Error("The sign-in response did not include an account.");
-      router.push(nextPath ?? "/dashboard/");
+      router.push(nextPath ?? "/admin/");
     } catch (error) {
       setNotice({ tone: "error", text: errorMessage(error, "We couldn't sign you in. Check your details and try again.") });
       setLoading(false);

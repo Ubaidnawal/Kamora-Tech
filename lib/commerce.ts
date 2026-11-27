@@ -22,6 +22,9 @@ export type ApiProduct = {
   description?: string | null;
   price?: number | null;
   currency?: string;
+  badge?: string | null;
+  is_available?: boolean;
+  features?: unknown[];
   status?: string;
   is_active?: boolean;
   category?: ApiCategory | null;

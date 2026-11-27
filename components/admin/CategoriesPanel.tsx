@@ -84,18 +84,18 @@ export function CategoriesPanel() {
               className={`${textareaClass} mt-2`}
             />
           </label>
-          <label className="flex items-center gap-2 font-sans text-xs text-cream/80 md:col-span-2">
+          <label className="flex items-center gap-2 font-sans text-xs text-[#000000]/80 md:col-span-2">
             <input
               type="checkbox"
               checked={form.is_active}
               onChange={(event) => setForm((current) => ({ ...current, is_active: event.target.checked }))}
-              className="h-4 w-4 border border-cream/30 bg-black accent-burgundy"
+              className="h-4 w-4 border border-[#E2E2E2]/30 bg-[#FFFFFF] accent-[#B00020]"
             />
             Active
           </label>
         </div>
         {formError && (
-          <div role="alert" className={`${cardClass} mt-4 border-burgundy/60 text-sm text-cream`}>
+          <div role="alert" className={`${cardClass} mt-4 border-[#B00020]/60 text-sm text-[#000000]`}>
             {formError}
           </div>
         )}
@@ -117,21 +117,21 @@ export function CategoriesPanel() {
           rowKey={(category) => category.id}
           empty={<AdminEmptyBlock title="No categories found" description="Create the first category using the form above." />}
           renderCell={(category, key) => {
-            if (key === "name") return <span className="font-sans text-sm font-medium text-cream">{category.name}</span>;
-            if (key === "slug") return <span className="font-sans text-xs text-cream/55">{category.slug}</span>;
-            if (key === "description") return <span className="font-sans text-xs text-cream/65">{category.description ?? "—"}</span>;
+            if (key === "name") return <span className="font-sans text-sm font-medium text-[#000000]">{category.name}</span>;
+            if (key === "slug") return <span className="font-sans text-xs text-[#000000]/55">{category.slug}</span>;
+            if (key === "description") return <span className="font-sans text-xs text-[#000000]/65">{category.description ?? "—"}</span>;
             return <StatusBadge value={category.is_active ? "active" : "inactive"} />;
           }}
           renderCard={(category) => (
             <div className={cardClass}>
               <div className="flex flex-wrap items-start justify-between gap-3">
                 <div>
-                  <p className="font-sans text-sm font-medium text-cream">{category.name}</p>
-                  <p className="mt-1 font-sans text-[10px] text-cream/40">{category.slug}</p>
+                  <p className="font-sans text-sm font-medium text-[#000000]">{category.name}</p>
+                  <p className="mt-1 font-sans text-[10px] text-[#000000]/40">{category.slug}</p>
                 </div>
                 <StatusBadge value={category.is_active ? "active" : "inactive"} />
               </div>
-              <p className="mt-4 font-sans text-xs text-cream/60">{category.description ?? "No description."}</p>
+              <p className="mt-4 font-sans text-xs text-[#000000]/60">{category.description ?? "No description."}</p>
             </div>
           )}
         />

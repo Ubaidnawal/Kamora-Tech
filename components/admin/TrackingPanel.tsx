@@ -74,9 +74,9 @@ export function TrackingPanel() {
             rowKey={(order) => order.id}
             empty={<AdminEmptyBlock title="No tracking records" description="Adjust the search or reload the order list." />}
             renderCell={(order, key) => {
-              if (key === "tracking") return <span className="font-sans text-xs font-medium text-cream">{order.tracking_id}</span>;
-              if (key === "order") return <span className="font-sans text-xs text-cream/70">{order.order_number}</span>;
-              if (key === "customer") return <span className="font-sans text-xs text-cream/70">{order.customer_name}</span>;
+              if (key === "tracking") return <span className="font-sans text-xs font-medium text-[#000000]">{order.tracking_id}</span>;
+              if (key === "order") return <span className="font-sans text-xs text-[#000000]/70">{order.order_number}</span>;
+              if (key === "customer") return <span className="font-sans text-xs text-[#000000]/70">{order.customer_name}</span>;
               if (key === "status") return <StatusBadge value={order.order_status} />;
               if (key === "payment") return <StatusBadge value={order.payment_status} />;
               if (key === "created") return <DateText value={order.created_at} withTime />;
@@ -84,7 +84,7 @@ export function TrackingPanel() {
                 <button
                   type="button"
                   onClick={() => setSelectedId(order.id)}
-                  className="border border-cream/20 px-3 py-1.5 font-sans text-[10px] font-semibold uppercase tracking-[0.14em] text-cream/70 hover:border-burgundy hover:text-burgundy"
+                  className="border border-[#E2E2E2]/20 px-3 py-1.5 font-sans text-[10px] font-semibold uppercase tracking-[0.14em] text-[#000000]/70 hover:border-[#B00020] hover:text-[#B00020]"
                 >
                   Timeline
                 </button>
@@ -94,19 +94,19 @@ export function TrackingPanel() {
               <div className={cardClass}>
                 <div className="flex flex-wrap items-start justify-between gap-3">
                   <div>
-                    <p className="font-sans text-sm font-medium text-cream">{order.tracking_id}</p>
-                    <p className="mt-1 font-sans text-[10px] text-cream/40">{order.order_number}</p>
+                    <p className="font-sans text-sm font-medium text-[#000000]">{order.tracking_id}</p>
+                    <p className="mt-1 font-sans text-[10px] text-[#000000]/40">{order.order_number}</p>
                   </div>
                   <StatusBadge value={order.order_status} />
                 </div>
-                <div className="mt-4 grid gap-2 font-sans text-xs text-cream/65">
+                <div className="mt-4 grid gap-2 font-sans text-xs text-[#000000]/65">
                   <p>{order.customer_name}</p>
                   <p><DateText value={order.created_at} withTime /></p>
                 </div>
                 <button
                   type="button"
                   onClick={() => setSelectedId(order.id)}
-                  className="mt-4 w-full border border-cream/20 px-3 py-2 font-sans text-[10px] font-semibold uppercase tracking-[0.14em] text-cream/70 hover:border-burgundy hover:text-burgundy"
+                  className="mt-4 w-full border border-[#E2E2E2]/20 px-3 py-2 font-sans text-[10px] font-semibold uppercase tracking-[0.14em] text-[#000000]/70 hover:border-[#B00020] hover:text-[#B00020]"
                 >
                   View timeline
                 </button>
@@ -128,17 +128,17 @@ export function TrackingPanel() {
             <KeyValue label="Last updated"><DateText value={selected.updated_at} withTime /></KeyValue>
           </div>
 
-          <div className="mt-6 border-t border-cream/10 pt-5">
+          <div className="mt-6 border-t border-[#E2E2E2]/10 pt-5">
             <p className={labelClass}>Status history</p>
             {selected.status_history.length ? (
               <ol className="mt-4 space-y-4">
                 {selected.status_history.map((entry) => (
-                  <li key={entry.id} className="border-l border-burgundy pl-4">
-                    <p className="font-sans text-xs text-cream/85">
+                  <li key={entry.id} className="border-l border-[#B00020] pl-4">
+                    <p className="font-sans text-xs text-[#000000]/85">
                       {entry.from_status ? `${entry.from_status} → ` : ""}{entry.to_status}
                     </p>
-                    <p className="mt-1 font-sans text-[10px] text-cream/45"><DateText value={entry.created_at} withTime /></p>
-                    {entry.note && <p className="mt-2 font-sans text-xs text-cream/60">{entry.note}</p>}
+                    <p className="mt-1 font-sans text-[10px] text-[#000000]/45"><DateText value={entry.created_at} withTime /></p>
+                    {entry.note && <p className="mt-2 font-sans text-xs text-[#000000]/60">{entry.note}</p>}
                   </li>
                 ))}
               </ol>
